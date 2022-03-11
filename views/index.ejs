@@ -4,7 +4,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <%- include('partials/sidebar.ejs') %>
+        <%- include('partials/sidebar.ejs'); %>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -14,7 +14,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <%- include('partials/navbar.ejs') %>
+                <%- include('partials/navbar.ejs'); %>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -23,9 +23,8 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800"><%= title %></h1>
                     <% if(page) { %> 
-                        <%- include('page/'+ page +'.ejs') %>
+                        <%- include('page/'+ page +'.ejs'); %>
                     <% } %>
-
                 </div>
                 <!-- /.container-fluid -->
 

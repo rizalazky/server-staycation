@@ -3,12 +3,19 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var methodOverride = require('method-override');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
+var mongoose=require('mongoose');
 
 var app = express();
+
+mongoose.connect('mongodb://localhost:27017/db_staycation')
+.then(res=>console.log('Koneksi DB Berhasil'))
+.catch(err=> console.log(err));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,6 +27,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/sb-admin-2',express.static(path.join(__dirname,'node_modules/startbootstrap-sb-admin-2')));
+
+app.use(methodOverride('_method'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

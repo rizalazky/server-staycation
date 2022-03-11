@@ -1,0 +1,54 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Add
+        </button>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% categories.forEach(function(cat,index){ %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td><%= cat.name %></td>
+                            <td>
+                                <button class="btn btn-primary btn-sm btn-edit-cat" 
+                                        data-toggle="modal"
+                                        data-target="#exampleModal"
+                                        data-id="<%= cat.id %>"
+                                        data-name="<%= cat.name %>"
+                                        >
+                                        Edit
+                                </button>
+                                <form action="/admin/categories/<%= cat.id %>?_method=DELETE" 
+                                    method="POST"
+                                    class="form-delete"
+                                    >
+                                    <button  type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                
+            </table>
+        </div>
+    </div>
+</div>
+
+<%- include('addmodal.ejs') %>
