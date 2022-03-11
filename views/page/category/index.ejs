@@ -20,19 +20,24 @@
                             <td><%= index + 1 %></td>
                             <td><%= cat.name %></td>
                             <td>
-                                <button class="btn btn-primary btn-sm btn-edit-cat" 
+                                <form action="/admin/categories/<%= cat.id %>?_method=DELETE" 
+                                    method="POST"
+                                    class="form-delete"
+                                    >
+                                    <button type="button"
+                                        class="btn btn-primary btn-sm btn-edit-cat" 
                                         data-toggle="modal"
                                         data-target="#exampleModal"
                                         data-id="<%= cat.id %>"
                                         data-name="<%= cat.name %>"
                                         >
                                         Edit
-                                </button>
-                                <form action="/admin/categories/<%= cat.id %>?_method=DELETE" 
-                                    method="POST"
-                                    class="form-delete"
-                                    >
-                                    <button  type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </button>                               
+                                    <button  type="submit" 
+                                        class="btn btn-danger btn-sm"
+                                        >
+                                        Delete
+                                    </button>
                                 </form>
                             </td>
                         </tr>
