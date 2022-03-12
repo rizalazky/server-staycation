@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var methodOverride = require('method-override');
+var flash = require('connect-flash');
+var session = require('express-session')
 
 
 var indexRouter = require('./routes/index');
@@ -29,6 +31,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/sb-admin-2',express.static(path.join(__dirname,'node_modules/startbootstrap-sb-admin-2')));
 
 app.use(methodOverride('_method'));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { cookie: { maxAge: 60000 } }
+}))
+// app.use(session({ }));
+app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

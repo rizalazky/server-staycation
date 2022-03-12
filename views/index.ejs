@@ -16,12 +16,13 @@
                 <!-- Topbar -->
                 <%- include('partials/navbar.ejs'); %>
                 <!-- End of Topbar -->
-
+                
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                    
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800"><%= title %></h1>
+                    <%- include('partials/alert.ejs'); %>
                     <% if(page) { %> 
                         <%- include('page/'+ page +'.ejs'); %>
                     <% } %>

@@ -1,5 +1,5 @@
 const mongoose=require('mongoose');
-const {objectId}=mongoose.Schema;
+const {ObjectId}=mongoose;
 
 
 const itemSchema=new mongoose.Schema({
@@ -26,15 +26,15 @@ const itemSchema=new mongoose.Schema({
         type:String,
     },
     imageId:[{
-        type:objectId,
+        type:ObjectId,
         ref :'Image'
     }],
     featureId:[{
-        type:objectId,
+        type:ObjectId,
         ref :'Feature'
     }],
     activityId:[{
-        type:objectId,
+        type:ObjectId,
         ref :'Activity'
     }],
  
