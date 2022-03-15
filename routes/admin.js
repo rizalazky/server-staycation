@@ -1,6 +1,7 @@
 var express = require('express');
 const adminController = require('../controllers/adminController');
 var router = express.Router();
+const { uploadOne,uploadMulti }= require('../middlewares/multer');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -25,7 +26,7 @@ router.delete('/banks/:id',adminController.deleteBank);
 
 // Item
 router.get('/items', adminController.item);
-router.post('/items',adminController.addItem);
+router.post('/items', uploadMulti ,adminController.addItem);
 // router.put('/items',adminController.editItem);
 router.delete('/items/:id',adminController.deleteItem);
 // End Item

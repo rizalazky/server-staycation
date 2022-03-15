@@ -3,28 +3,49 @@
   
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <form action="/admin/banks" method="POST" id="form-bank">
+    <div class="modal-dialog modal-xl">
+        <form action="/admin/items" method="POST" id="form-bank" enctype="multipart/form-data">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <input type="hidden" name="id" id="inp-bank-id">
+                <input type="hidden" name="id" id="inp-item-id">
                 <div class="form-group">
-                  <label for="name">Name Bank</label>
-                  <input type="text" class="form-control" name="nameBank" id="inp-bank-namebank" required>
+                  <label for="name">Title</label>
+                  <input type="text" class="form-control" name="title" id="inp-item-title" required>
                 </div>
                 <div class="form-group">
-                  <label for="name">Nomer Rekening</label>
-                  <input type="text" class="form-control" name="nomerRekening" id="inp-bank-nomerrekening" required>
+                  <label for="name">Price</label>
+                  <input type="text" class="form-control" name="price" id="inp-item-price" required>
                 </div>
                 <div class="form-group">
-                  <label for="name">Name</label>
-                  <input type="text" class="form-control" name="name" id="inp-bank-name" required>
+                  <label for="name">Category</label>
+                  <select class="form-control" name="categoryId" id="inp-item-country">
+                    <option value="">-- Select Category --</option>
+                    <% categories.forEach(function(cat){ %>
+                      <option value="<%= cat.id %>"><%= cat.name %></option>
+                    <% }) %>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="name">City</label>
+                  <input type="text" class="form-control" name="city" id="inp-item-city" required>
+                </div>
+                <div class="form-group">
+                  <label for="name">Country</label>
+                  <input type="text" class="form-control" name="country" id="inp-item-country" required>
+                </div>
+                <div class="form-group">
+                  <label for="name">Image</label>
+                  <input type="file" class="form-control" name="images" id="inp-item-image" multiple>
+                </div>
+                <div class="form-group">
+                  <label for="name">Description</label>
+                  <textarea type="text" class="form-control" name="description" id="inp-item-description" required></textarea>
                 </div>
               </div>
               <div class="modal-footer">

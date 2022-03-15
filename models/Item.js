@@ -1,5 +1,5 @@
 const mongoose=require('mongoose');
-const {ObjectId}=mongoose;
+const {ObjectId}=mongoose.Schema;
 
 
 const itemSchema=new mongoose.Schema({
@@ -21,6 +21,7 @@ const itemSchema=new mongoose.Schema({
     },
     isPopular:{
         type:Boolean,
+        default : false
     },
     description:{
         type:String,
@@ -37,7 +38,10 @@ const itemSchema=new mongoose.Schema({
         type:ObjectId,
         ref :'Activity'
     }],
- 
+    categoryId :{
+        type :ObjectId,
+        ref : 'Category'
+    }
 })
 
 

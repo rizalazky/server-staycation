@@ -10,21 +10,35 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Bank Name</th>
-                        <th>Rekening</th>
-                        <th>Name</th>
-                        <th>Action</th>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Country</th>
+                        <th>City</th>
+                        <th>Popular</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>Feature</th>
+                        <th>Activity</th>
+                        <th>Category</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <% banks.forEach(function(bank,index){ %>
+                    <% items.forEach(function(item,index){ %>
                         <tr>
                             <td><%= index + 1 %></td>
-                            <td><%= bank.nameBank %></td>
-                            <td><%= bank.nomerRekening %></td>
-                            <td><%= bank.name %></td>
+                            <td><%= item.title %></td>
+                            <td><%= item.price %></td>
+                            <td><%= item.country %></td>
+                            <td><%= item.city %></td>
+                            <td><%= item.isPopular %></td>
+                            <td><%= item.description %></td>
+                            <td><%= item.imageId %></td>
+                            <td><%= item.featureId %></td>
+                            <td><%= item.activityId %></td>
+                            <td><%= item.categoryId %></td>
                             <td>
-                                <form action="/admin/banks/<%= bank.id %>?_method=DELETE" 
+                                <form action="/admin/items/<%= item.id %>?_method=DELETE" 
                                     method="POST"
                                     class="form-delete"
                                     >
@@ -32,10 +46,12 @@
                                         class="btn btn-primary btn-sm btn-edit-bank" 
                                         data-toggle="modal"
                                         data-target="#exampleModal"
-                                        data-id="<%= bank.id %>"
-                                        data-name="<%= bank.name %>"
-                                        data-namebank="<%= bank.nameBank %>"
-                                        data-nomerrekening="<%= bank.nomerRekening %>"
+                                        data-id="<%= item.id %>"
+                                        data-title="<%= item.title %>"
+                                        data-city="<%= item.city %>"
+                                        data-country="<%= item.country %>"
+                                        data-description="<%= item.description %>"
+                                        data-categoryid="<%= item.categoryId %>"
                                         >
                                         Edit
                                     </button>                               
