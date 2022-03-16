@@ -15,10 +15,6 @@
                         <th>Country</th>
                         <th>City</th>
                         <th>Popular</th>
-                        <th>Description</th>
-                        <th>Image</th>
-                        <th>Feature</th>
-                        <th>Activity</th>
                         <th>Category</th>
                         <th>Actions</th>
                     </tr>
@@ -32,18 +28,24 @@
                             <td><%= item.country %></td>
                             <td><%= item.city %></td>
                             <td><%= item.isPopular %></td>
-                            <td><%= item.description %></td>
-                            <td><%= item.imageId %></td>
-                            <td><%= item.featureId %></td>
-                            <td><%= item.activityId %></td>
-                            <td><%= item.categoryId %></td>
+                            <td><%= item.categoryId.name %></td>
                             <td>
                                 <form action="/admin/items/<%= item.id %>?_method=DELETE" 
                                     method="POST"
                                     class="form-delete"
                                     >
                                     <button type="button"
-                                        class="btn btn-primary btn-sm btn-edit-bank" 
+                                        class="btn btn-success btn-circle btn-sm" 
+                                        data-toggle="modal"
+                                        data-target="#show-image-modal"
+                                        data-id="<%= item.id %>"
+                                        data-title="<%= item.title %>"
+                                        data-image="<%= item.imageId %>"
+                                        >
+                                        <i class="fa fa-image"></i>
+                                    </button> 
+                                    <button type="button"
+                                        class="btn btn-primary btn-circle btn-sm btn-edit-bank" 
                                         data-toggle="modal"
                                         data-target="#exampleModal"
                                         data-id="<%= item.id %>"
@@ -53,12 +55,20 @@
                                         data-description="<%= item.description %>"
                                         data-categoryid="<%= item.categoryId %>"
                                         >
-                                        Edit
+                                        <i class="fa fa-edit"></i>
+                                    </button>                               
+                                    <button type="button"
+                                        class="btn btn-warning btn-circle btn-sm btn-edit-bank" 
+                                        data-toggle="modal"
+                                        data-target="#exampleModal"
+                                        data-id="<%= item.id %>"
+                                        >
+                                        <i class="fa fa-plus"></i>
                                     </button>                               
                                     <button  type="submit" 
-                                        class="btn btn-danger btn-sm"
+                                        class="btn btn-danger btn-circle btn-sm"
                                         >
-                                        Delete
+                                        <i class="fa fa-trash"></i>
                                     </button>
                                 </form>
                             </td>
@@ -73,3 +83,4 @@
 </div>
 
 <%- include('addmodal.ejs') %>
+<%- include('showimagemodal.ejs') %>

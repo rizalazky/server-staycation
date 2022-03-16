@@ -2,6 +2,7 @@ const Category=require('../models/Category');
 const Item=require('../models/Item');
 const Bank=require('../models/Bank');
 const Image=require('../models/Image');
+const multer = require("multer");
 
 module.exports={
     //  Category
@@ -129,7 +130,11 @@ module.exports={
     //  End Bank
     // Item
     item :async (req,res)=>{
-        let items=await Item.find();
+        let items=await Item.find()
+            .populate('imageId','id imageUrl')
+            .populate('categoryId','name')
+            .exec();
+        console.log(items);
         let categories = await Category.find();
         let alert = {
             message : req.flash('alertMessage'),
@@ -148,38 +153,42 @@ module.exports={
     },
     addItem :async (req,res)=>{
         const { title,price,country,city,description,categoryId } = req.body;
-        const images  = req.file;
+        const images  = req.files;
 
-        console.log(req.body);
-        console.log(req.file);
-        try {
-            let category=await Category.findById(categoryId);
-            let dataCreateItem = {
-                title,price,country,city,description,categoryId
+        if(images){
+            try {
+                let category=await Category.findById(categoryId);
+                let dataCreateItem = {
+                    title,price,country,city,description,categoryId
+                }
+                console.log(dataCreateItem);
+                let createItem=await Item.create(dataCreateItem);
+                category.idItem.push = createItem._id;
+                await category.save();
+                let imageId =[];
+                for (let index = 0; index < images.length; index++) {
+                    let fileName= images[index].filename;
+                    let createImage = await Image.create({
+                        imageUrl : `images/${fileName}`,
+                        idItem : createItem._id
+                    })
+                    imageId.push(createImage._id);
+                }
+                createItem.imageId = imageId;
+                await createItem.save();
+    
+                req.flash('alertMessage', 'Success Create Item');
+                req.flash('alertStatus', 'success');
+                
+            } catch (error) {
+                req.flash('alertMessage',`Failed Create Item ${error.message}`);
+                req.flash('alertStatus', 'danger');
             }
-            console.log(dataCreateItem);
-            let createItem=await Item.create(dataCreateItem);
-            category.idItem = createItem._id;
-            await category.save();
-            let imageId =[];
-            for (let index = 0; index < images.length; index++) {
-                let fileName= images[i].filename;
-                let createImage = await Image.create({
-                    imageUrl : `/uploads/images/${fileName}`,
-                    idItem : createItem._id
-                })
-                imageId.push(createImage._id);
-            }
-            createItem.imageId = imageId;
-            await createItem.save();
-
-            req.flash('alertMessage', 'Success Create Item');
-            req.flash('alertStatus', 'success');
-            
-        } catch (error) {
-            req.flash('alertMessage',`Failed Create Item ${error.message}`);
+        }else{
+            req.flash('alertMessage',`Failed Create Item,Image Are required`);
             req.flash('alertStatus', 'danger');
         }
+
         
         
         res.redirect('/admin/items');

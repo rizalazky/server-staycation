@@ -1,10 +1,24 @@
 const multer  = require('multer')
-const upload = multer({ dest: 'public/images/' })
+const path = require('path')
+const diskStorage=multer.diskStorage({
+    destination : function(req,file,cb){
+        cb(null,'public/images');
+    },
+    filename : function(req,file,cb){
+        cb(
+            null,file.fieldname +'_' + Date.now() + path.extname(file.originalname)
+        );
+    }
+})
 
-const uploadSingle = upload.single('images')
+const uploadSingle = multer({
+    storage : diskStorage
+}).single('images')
 
 
-const uploadMulti = upload.array('images')
+const uploadMulti = multer({
+    storage : diskStorage
+}).array('images')
 
 
 module.exports = {uploadSingle,uploadMulti}
